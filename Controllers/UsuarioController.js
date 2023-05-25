@@ -16,7 +16,9 @@ class UsuarioController {
   async update(req, res) {
     const { id } = req.params;
 
-    const usuario = await UsuarioModel.findByIdAndUpdate(id, req.body);
+    const usuario = await UsuarioModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
     return res.status(200).json(usuario);
   }
