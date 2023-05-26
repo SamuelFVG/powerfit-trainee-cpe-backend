@@ -6,6 +6,7 @@ const SessoesSchema = new Schema(
   {
     id_usuario: {
       type: Schema.Types.ObjectId,
+      unique: true,
       ref: "usuarios",
     },
   },
