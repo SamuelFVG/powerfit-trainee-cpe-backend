@@ -1,16 +1,6 @@
 const { z } = require("zod");
 const { validateRequest } = require("zod-express-middleware");
-const mongoose = require("mongoose");
-
-// {
-//     "_id": "646ec10d19ee335861bbc4d7",
-//     "email": "maromba_noPain_noGain@whey.com",
-//     "nome": "Joaquin QuinQuin",
-//     "senha": "brlll070707",
-//     "cargo": "Cliente",
-//     "atividade": "Levantando 400kg no bench",
-//     "__v": 0
-// }
+const { default: mongoose} = require("mongoose");
 
 const create = validateRequest({
   body: z.object({

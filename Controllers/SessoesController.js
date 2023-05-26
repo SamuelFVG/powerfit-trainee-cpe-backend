@@ -15,6 +15,7 @@ class SessoesController {
 
   async delete(req, res) {
     const { id } = req.params;
+    
     await SessoesModel.findByIdAndDelete(id);
 
     return res

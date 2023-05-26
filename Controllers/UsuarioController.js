@@ -2,34 +2,53 @@ const UsuarioModel = require("../Models/UsuarioModel");
 
 class UsuarioController {
   async create(req, res) {
-    const usuario = await UsuarioModel.create(req.body);
+    try {
+      const usuario = await UsuarioModel.create(req.body);
 
-    return res.status(200).json(usuario);
+      res.status(200).json(usuario);
+    } catch (error) {
+      res.status(500).json({message: "ERRO", error: error.message})
+    }
   }
 
   async read(req, res) {
-    const usuario = await UsuarioModel.find();
+    try {
+      const usuario = await UsuarioModel.find();
 
-    return res.status(200).json(usuario);
+      res.status(200).json(usuario);
+    } catch (error) {
+      res.status(500).json({message: "ERRO", error: error.message})
+    }
+    
   }
 
   async update(req, res) {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
 
     const usuario = await UsuarioModel.findByIdAndUpdate(id, req.body, {
       new: true,
     });
 
-    return res.status(200).json(usuario);
+    res.status(200).json(usuario);
+      
+    } catch (error) {
+      res.status(500).json({message: "ERRO", error: error.message})
+    }
+    
   }
 
   async delete(req, res) {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
     await UsuarioModel.findByIdAndDelete(id);
 
-    return res
+    res
       .status(200)
       .json({ mensagem: "Usuário com id " + id + " deletado com sucesso!" });
+    } catch (error) {
+      res.status(500).json({message: "ERRO", error: error.message})
+    }
   }
 }
 
