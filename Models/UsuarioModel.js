@@ -10,7 +10,7 @@ const UsuarioSchema = new Schema({
   email: {
     //o usuário possui um email que deve ser único (não se repete para nenhum outro usuário)
     type: String,
-    unique: true,
+    unique: true, //validação a nível de banco de dados
   },
   nome: {
     //o nome também deve ser único
@@ -27,13 +27,14 @@ const UsuarioSchema = new Schema({
 });
 
 UsuarioSchema.pre("save", async function (next) {
-  const user = this;
+  //antes de salvar o usuário, roda essa função. Quando acabar de rodar ela, chamamos o next para sairmos da função e salvarmos o usuário
+  const user = this; //ponteiro do objeto para si mesmo
 
   if (user.isModified("senha")) {
-    const salt = await bcrypt.genSalt();
-    const hash = await bcrypt.hash(user.senha, salt);
-    user.senha = hash;
-    // console.log({ salt, hash });
+    //quando o campo de senha for modificado por qualquer motivo,
+    const salt = await bcrypt.genSalt(); //criamos uma string de caracteres aleatórios para criptografarmos a senha (salt)
+    const hash = await bcrypt.hash(user.senha, salt); //criptogragamos a senha com essa string feita anteriormente
+    user.senha = hash; // a senha nova será igual à senha antiga, criptografada
   }
 
   next();

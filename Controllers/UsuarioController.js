@@ -37,7 +37,7 @@ class UsuarioController {
           .status(404)
           .json({ message: "Usuário com id " + id + " não encontrado!" });
 
-      const usuario = await usuarioEncontrado.set(req.body).save();
+      const usuario = await usuarioEncontrado.set(req.body).save(); //seta as modificações e salva no banco de dados
       res.status(200).json(usuario); //retorna o usuário modificado
     } catch (error) {
       res.status(500).json({ message: "ERRO", error: error.message });
@@ -49,10 +49,11 @@ class UsuarioController {
       const { id } = req.params;
 
       const usuarioEncontrado = await UsuarioModel.findById(id);
-      if (!usuarioEncontrado)
+      if (!usuarioEncontrado) {
         return res
           .status(404)
           .json({ message: "Usuário com id " + id + " não encontrado!" });
+      }
 
       const usuario = await usuarioEncontrado.deleteOne(); //deleta somente o usuário encontrado (deleteOne)
 
