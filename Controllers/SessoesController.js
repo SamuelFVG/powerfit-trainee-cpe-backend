@@ -1,3 +1,4 @@
+//explicações detalhadas na UsuarioController
 const SessoesModel = require("../Models/SessoesModel");
 
 /*TODO:
@@ -16,17 +17,17 @@ class SessoesController {
 
   async read(req, res) {
     try {
-      const sessao = await SessoesModel.find().populate("id_usuario", "-senha");
+      const sessao = await SessoesModel.find().populate("id_usuario", "-senha"); //O populate faz com que as informações do usuário com id id_usuario também sejam mostradas, com excessão da senha
 
-      return res.status(200).json(sessao);
+      res.status(200).json(sessao);
     } catch (error) {
       res.status(500).json({ message: "ERRO", error: error.message });
     }
   }
 
-  async delete(req, res) {
+  async destroy(req, res) {
     try {
-      const { id } = req.params;
+      const { id } = req.params; //faz a mesma validação de usuários no sentido de não tentar apagar uma sessão que não existe
 
       const sessaoEncontrada = await SessoesModel.findById(id);
       if (!sessaoEncontrada)
