@@ -6,7 +6,7 @@ const create = validateRequest({
   body: z.object({
     id_usuario: z.custom(
       mongoose.isValidObjectId,
-      "O id do usuário não é valido"
+      "O id da sessão não é valido"
     ),
   }),
 });

@@ -1,8 +1,8 @@
-const express = require("express");
-const rotas = require("./routes");
+const express = require("express"); //importa a biblioteca express, responsável por todas as manipulações no banco de dados
 const cors = require("cors");
+const rotas = require("./routes");
 
-const app = express();
+const app = express(); //define express em uma constante chamada app
 
 app.use(express.urlencoded({ extended: true })); //https??
 app.use(express.json());
@@ -13,15 +13,3 @@ app.use("*", (req, res) => {
 });
 
 module.exports = app;
-
-// app.get("", (req, res) => {
-//   return res.json({
-//     message: "Padrão",
-//   });
-// });
-
-// app.get("/cadastro", (req, res) => {
-//   return res.json({
-//     message: "Cadastro",
-//   });
-// });
