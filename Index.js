@@ -1,4 +1,4 @@
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 const app = require("./App");
 const Loaders = require("./Loaders/index");
 

@@ -1,6 +1,6 @@
 const { z } = require("zod");
 const { validateRequest } = require("zod-express-middleware");
-const { default: mongoose} = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
 const create = validateRequest({
   body: z.object({

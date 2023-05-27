@@ -3,7 +3,8 @@ const UsuarioController = require("./Controllers/UsuarioController");
 const SessoesController = require("./Controllers/SessoesController");
 const UsuarioValidator = require("./Validators/UsuarioValidator");
 const SessoesValidator = require("./Validators/SessoesValidator");
-
+const AuthController = require("./Controllers/AuthController");
+const AuthValidator = require("./Validators/AuthValidator");
 const rotas = Router();
 
 //usuarios
@@ -24,5 +25,8 @@ rotas.delete(
   SessoesValidator.destroy,
   SessoesController.delete
 );
+
+//auth
+rotas.post("/login", AuthValidator.login, AuthController.login);
 
 module.exports = rotas;

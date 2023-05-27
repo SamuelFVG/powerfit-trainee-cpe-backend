@@ -20,19 +20,19 @@ const UsuarioSchema = new Schema({
   atividade: String,
 });
 
-UsuarioSchema.pre("save", async function(next){
-    const user = this
+UsuarioSchema.pre("save", async function (next) {
+  const user = this;
 
-    if(user.isModified("senha")){
-      const salt = await bcrypt.genSalt();
-      const hash = await bcrypt.hash(user.senha, salt);
-      
-      user.senha = hash;
+  if (user.isModified("senha")) {
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(user.senha, salt);
 
-      console.log({ salt, hash });
-    }
+    user.senha = hash;
 
-next()
+    console.log({ salt, hash });
+  }
+
+  next();
 });
 
 const UsuarioModel = mongoose.model("usuarios", UsuarioSchema);
