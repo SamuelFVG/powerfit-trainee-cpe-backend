@@ -1,5 +1,8 @@
 const SessoesModel = require("../Models/SessoesModel");
 
+/*TODO:
+Ver como não criar a sessão se o ID não existir nos usuários
+*/
 class SessoesController {
   async create(req, res) {
     try {
@@ -25,7 +28,13 @@ class SessoesController {
     try {
       const { id } = req.params;
 
-      await SessoesModel.findByIdAndDelete(id);
+      const sessaoEncontrada = await SessoesModel.findById(id);
+      if (!sessaoEncontrada)
+        return res
+          .status(404)
+          .json({ message: "Sessão com id " + id + " não encontrada!" });
+
+      const sessao = await sessaoEncontrada.deleteOne();
 
       res
         .status(200)

@@ -23,7 +23,7 @@ class UsuarioController {
   async update(req, res) {
     try {
       const { id } = req.params;
-
+      console.log(id);
       const usuarioEncontrado = await UsuarioModel.findById(id);
       if (!usuarioEncontrado)
         return res
