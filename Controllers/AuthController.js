@@ -26,7 +26,8 @@ class AuthController {
       //se tanto a senha quanto o email forem válidos
       const { senha: senhaCriptografada, ...usuarioSemSenha } =
         usuarioEncontrado.toObject; //retira a senha do objeto para a criação do token
-      const token = await jwt.sign(
+
+      const token = jwt.sign(
         { usuarioSemSenha },
         process.env.JWT_SECRET, //chave secreta que verifica a autenticidade do token
         { expiresIn: process.env.JWT_EXPIRE_IN } //tempo de expiração do token

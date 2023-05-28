@@ -9,23 +9,36 @@ const UsuarioController = require("./Controllers/UsuarioController");
 const UsuarioValidator = require("./Validators/UsuarioValidator");
 const AuthController = require("./Controllers/AuthController");
 const AuthValidator = require("./Validators/AuthValidator");
+const verificarJwt = require("./Middlewares/verificarJwt");
 
 const rotas = Router();
 
 //usuarios
 rotas.post("/usuarios", UsuarioValidator.create, UsuarioController.create);
-rotas.get("/usuarios", UsuarioController.read);
+rotas.get("/usuarios", verificarJwt, UsuarioController.read);
 rotas.delete(
+  verificarJwt,
   "/usuarios/:id",
   UsuarioValidator.destroy,
   UsuarioController.destroy
 );
-rotas.put("/usuarios/:id", UsuarioValidator.update, UsuarioController.update);
+rotas.put(
+  "/usuarios/:id",
+  verificarJwt,
+  UsuarioValidator.update,
+  UsuarioController.update
+);
 
 //sessoes
-rotas.post("/sessoes", SessoesValidator.create, SessoesController.create);
-rotas.get("/sessoes", SessoesController.read);
+rotas.post(
+  "/sessoes",
+  verificarJwt,
+  SessoesValidator.create,
+  SessoesController.create
+);
+rotas.get("/sessoes", verificarJwt, SessoesController.read);
 rotas.delete(
+  verificarJwt,
   "/sessoes/:id",
   SessoesValidator.destroy,
   SessoesController.destroy
