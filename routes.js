@@ -17,8 +17,8 @@ const rotas = Router();
 rotas.post("/usuarios", UsuarioValidator.create, UsuarioController.create);
 rotas.get("/usuarios", verificarJwt, UsuarioController.read);
 rotas.delete(
-  verificarJwt,
   "/usuarios/:id",
+  verificarJwt,
   UsuarioValidator.destroy,
   UsuarioController.destroy
 );
@@ -38,8 +38,8 @@ rotas.post(
 );
 rotas.get("/sessoes", verificarJwt, SessoesController.read);
 rotas.delete(
-  verificarJwt,
   "/sessoes/:id",
+  verificarJwt,
   SessoesValidator.destroy,
   SessoesController.destroy
 );
