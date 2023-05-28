@@ -1,12 +1,22 @@
 //explicações detalhadas na UsuarioController
 const SessoesModel = require("../Models/SessoesModel");
+const UsuarioModel = require("../Models/UsuarioModel");
 
-/*TODO:
-Ver como não criar a sessão se o ID não existir nos usuários
-*/
 class SessoesController {
   async create(req, res) {
     try {
+      const { id_usuario } = req.body;
+      const usuarioEncontrado = await UsuarioModel.findOne({ _id: id_usuario });
+      console.log({ usuarioEncontrado });
+
+      if (usuarioEncontrado == null)
+        return res.status(404).json({
+          message:
+            "Usuário com id " +
+            id_usuario +
+            " não encontrado! Não é possível iniciar a sessão",
+        });
+
       const sessao = await SessoesModel.create(req.body);
 
       res.status(200).json(sessao);
