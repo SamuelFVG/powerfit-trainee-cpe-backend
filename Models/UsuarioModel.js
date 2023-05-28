@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt"); //biblioteca bcrypt, usada para encriptar a se
 
 const Schema = mongoose.Schema; //define uma constante como o operador de "tabela"
 
+const SessoesModel = require("./SessoesModel");
+
 //Define como a tabela de usuário é estruturada
 const UsuarioSchema = new Schema({
   email: {
@@ -28,17 +30,26 @@ const UsuarioSchema = new Schema({
 
 UsuarioSchema.pre("save", async function (next) {
   //antes de salvar o usuário, roda essa função. Quando acabar de rodar ela, chamamos o next para sairmos da função e salvarmos o usuário
-  const user = this; //ponteiro do objeto para si mesmo
+  const usuario = this; //ponteiro do objeto para si mesmo
 
-  if (user.isModified("senha")) {
+  if (usuario.isModified("senha")) {
     //quando o campo de senha for modificado por qualquer motivo,
     const salt = await bcrypt.genSalt(); //criamos uma string de caracteres aleatórios para criptografarmos a senha (salt)
-    const hash = await bcrypt.hash(user.senha, salt); //criptogragamos a senha com essa string feita anteriormente
-    user.senha = hash; // a senha nova será igual à senha antiga, criptografada
+    const hash = await bcrypt.hash(usuario.senha, salt); //criptogragamos a senha com essa string feita anteriormente
+    usuario.senha = hash; // a senha nova será igual à senha antiga, criptografada
   }
-
   next();
 });
+
+UsuarioSchema.pre(
+  "deleteOne",
+  { document: true, query: false },
+  async function () {
+    const usuario = this;
+
+    return SessoesModel.deleteOne({ id_usuario: usuario._id });
+  }
+);
 
 const UsuarioModel = mongoose.model("usuarios", UsuarioSchema); //cria o modelo de acordo com as definições anteriores
 

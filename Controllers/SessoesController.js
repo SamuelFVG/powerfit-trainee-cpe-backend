@@ -5,11 +5,11 @@ const UsuarioModel = require("../Models/UsuarioModel");
 class SessoesController {
   async create(req, res) {
     try {
-      const { id_usuario } = req.body;
-      const usuarioEncontrado = await UsuarioModel.findOne({ _id: id_usuario });
-      console.log({ usuarioEncontrado });
+      const { id_usuario } = req.body; //pega o suposto id de usuários no body da requisição
+      const usuarioEncontrado = await UsuarioModel.findOne({ _id: id_usuario }); // procura por esse id em todos os modelos de usuário
 
       if (usuarioEncontrado == null)
+        //se ele não achar o usuário com id, ou seja, se o encontrado for null, não pode-se criar a sessão
         return res.status(404).json({
           message:
             "Usuário com id " +
@@ -17,7 +17,7 @@ class SessoesController {
             " não encontrado! Não é possível iniciar a sessão",
         });
 
-      const sessao = await SessoesModel.create(req.body);
+      const sessao = await SessoesModel.create(req.body); //se o usuário for encontrado, segue para cá
 
       res.status(200).json(sessao);
     } catch (error) {
@@ -39,11 +39,11 @@ class SessoesController {
     try {
       const { id } = req.params; //faz a mesma validação de usuários no sentido de não tentar apagar uma sessão que não existe
 
-      const sessaoEncontrada = await SessoesModel.findById(id);
+      const sessaoEncontrada = await SessoesModel.findOne({ id_usuario: id });
       if (!sessaoEncontrada)
-        return res
-          .status(404)
-          .json({ message: "Sessão com id " + id + " não encontrada!" });
+        return res.status(404).json({
+          message: "Usuário com id " + id + " não encontrado nas sessões!",
+        });
 
       const sessao = await sessaoEncontrada.deleteOne();
 
