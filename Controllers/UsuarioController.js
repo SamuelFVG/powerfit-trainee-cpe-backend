@@ -67,9 +67,3 @@ class UsuarioController {
 }
 
 module.exports = new UsuarioController();
-
-// "email": "exemplo@tes.com",
-// "nome": "mickey mouse",
-// "senha": "12345",
-// "cargo": "testador",
-// "atividade": "testar",

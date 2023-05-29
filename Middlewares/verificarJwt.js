@@ -29,7 +29,8 @@ function verificarJwt(req, res, next) {
     //se o token for válido, de acordo com a string
     if (erro) return res.status(403).json({ message: "O token é inválido" });
 
-    req.usuarioId = usuario._id;
+    req.usuarioId = usuario.usuarioSemSenha._id;
+    
     next();
   });
 }
