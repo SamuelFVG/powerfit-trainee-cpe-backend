@@ -48,7 +48,7 @@ UsuarioSchema.pre(
   async function () {
     const usuario = this;
 
-    return SessoesModel.deleteOne({ id_usuario: usuario._id }); //não precisa do next pq retorna só uma promise
+    return await SessoesModel.deleteOne({ id_usuario: usuario._id }); //não precisa do next pq retorna só uma promise
   }
 );
 
