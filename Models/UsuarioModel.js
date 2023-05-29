@@ -42,12 +42,13 @@ UsuarioSchema.pre("save", async function (next) {
 });
 
 UsuarioSchema.pre(
+  //middleware que roda antes de deletar o usuário, que tem a função de deletar sua sessão se ela existir.
   "deleteOne",
   { document: true, query: false },
   async function () {
     const usuario = this;
 
-    return SessoesModel.deleteOne({ id_usuario: usuario._id });
+    return SessoesModel.deleteOne({ id_usuario: usuario._id }); //não precisa do next pq retorna só uma promise
   }
 );
 

@@ -15,7 +15,7 @@ const rotas = Router();
 
 //usuarios
 rotas.post("/usuarios", UsuarioValidator.create, UsuarioController.create);
-rotas.get("/usuarios", verificarJwt, UsuarioController.read);
+rotas.get("/usuarios", verificarJwt, UsuarioController.read); //usamos o verificarjwt antes de qualquer coisa, para verificarmos se a requisição é de um usuário logado
 rotas.delete(
   "/usuarios/:id",
   verificarJwt,

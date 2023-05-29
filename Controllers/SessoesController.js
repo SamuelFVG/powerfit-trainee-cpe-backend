@@ -9,7 +9,7 @@ class SessoesController {
       const usuarioEncontrado = await UsuarioModel.findOne({ _id: id_usuario }); // procura por esse id em todos os modelos de usuário
 
       if (usuarioEncontrado == null)
-        //se ele não achar o usuário com id, ou seja, se o encontrado for null, não pode-se criar a sessão
+        //se ele não achar o usuário com id, ou seja, se o encontrado for null, não se pode criar a sessão
         return res.status(404).json({
           message:
             "Usuário com id " +
@@ -38,7 +38,7 @@ class SessoesController {
   async destroy(req, res) {
     try {
       const { id } = req.params; //faz a mesma validação de usuários no sentido de não tentar apagar uma sessão que não existe
-
+      // ele procura pelo usuário com o id que foi passado nos parâmetros da requisição. Ou seja, da forma que está aqui, ele apaga pelo id do usuário e não da sessão
       const sessaoEncontrada = await SessoesModel.findOne({ id_usuario: id });
       if (!sessaoEncontrada)
         return res.status(404).json({
@@ -49,7 +49,9 @@ class SessoesController {
 
       res
         .status(200)
-        .json({ mensagem: "Sessão com id " + id + " deletado com sucesso!" });
+        .json({
+          mensagem: "Sessão do usuário com id " + id + " deletado com sucesso!",
+        });
     } catch (error) {
       res.status(500).json({ message: "ERRO", error: error.message });
     }
