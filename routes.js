@@ -10,6 +10,7 @@ const UsuarioValidator = require("./Validators/UsuarioValidator");
 const AuthController = require("./Controllers/AuthController");
 const AuthValidator = require("./Validators/AuthValidator");
 const verificarJwt = require("./Middlewares/verificarJwt");
+const verificarUsuario = require("./Middlewares/verificarUsuario")
 
 const rotas = Router();
 
@@ -19,12 +20,14 @@ rotas.get("/usuarios", verificarJwt, UsuarioController.read); //usamos o verific
 rotas.delete(
   "/usuarios/:id",
   verificarJwt,
+  verificarUsuario,
   UsuarioValidator.destroy,
   UsuarioController.destroy
 );
 rotas.put(
   "/usuarios/:id",
   verificarJwt,
+  verificarUsuario,
   UsuarioValidator.update,
   UsuarioController.update
 );
@@ -33,6 +36,7 @@ rotas.put(
 rotas.post(
   "/sessoes",
   verificarJwt,
+  verificarUsuario,
   SessoesValidator.create,
   SessoesController.create
 );
@@ -40,6 +44,7 @@ rotas.get("/sessoes", verificarJwt, SessoesController.read);
 rotas.delete(
   "/sessoes/:id",
   verificarJwt,
+  verificarUsuario,
   SessoesValidator.destroy,
   SessoesController.destroy
 );

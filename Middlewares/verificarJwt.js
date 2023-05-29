@@ -28,7 +28,8 @@ function verificarJwt(req, res, next) {
   jwt.verify(token, process.env.JWT_SECRET, (erro, usuario) => {
     if (erro) return res.status(403).json({ message: "O token é inválido" });
 
-    req.usuarioId = usuario._id;
+    req.usuarioId = usuario.usuarioSemSenha._id;
+    
     next();
   });
 }
