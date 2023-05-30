@@ -27,7 +27,6 @@ class AuthController {
       const { senha: senhaCriptografada, ...usuarioSemSenha } =
         usuarioEncontrado.toObject(); //retira a senha do objeto para a criação do token
 
-        console.log(usuarioSemSenha);
       const token = jwt.sign(
         { usuarioSemSenha },
         process.env.JWT_SECRET, //chave secreta que verifica a autenticidade do token
