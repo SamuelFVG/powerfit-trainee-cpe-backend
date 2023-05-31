@@ -25,11 +25,11 @@ function verificarJwt(req, res, next) {
     //se o token estiver presente
     return res.status(403).json({ message: "O token não está presente!" });
 
-  jwt.verify(token, process.env.JWT_SECRET, (erro, { usuario }) => {
+  jwt.verify(token, process.env.JWT_SECRET, (erro, usuario) => {
     if (erro) return res.status(403).json({ message: "O token é inválido" });
     //TEM UMA CHANCE DE DAR PROBLEMA PQ AQUI EU TAVA FAZENDO PRA USUARIO E NÃO PRA {USUARIO}
-    req.usuarioId = usuario.usuarioSemSenha._id;
-
+    //console.log(usuario);
+    req.usuarioId = usuario.usuarioSemLogin_id;
     next();
   });
 }
