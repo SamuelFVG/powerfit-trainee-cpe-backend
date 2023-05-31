@@ -29,7 +29,7 @@ function verificarJwt(req, res, next) {
     if (erro) return res.status(403).json({ message: "O token é inválido" });
     //TEM UMA CHANCE DE DAR PROBLEMA PQ AQUI EU TAVA FAZENDO PRA USUARIO E NÃO PRA {USUARIO}
     //console.log(usuario);
-    req.usuarioId = usuario.usuarioSemLogin_id;
+    req.usuarioId = usuario.usuarioSemSenha._id;
     next();
   });
 }
