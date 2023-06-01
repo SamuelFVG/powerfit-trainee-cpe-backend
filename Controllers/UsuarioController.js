@@ -8,7 +8,11 @@ class UsuarioController {
     //cria o usuário de acordo com as coisas escritas no body. O ID é criado automaticamente. Não deve criar se algum campo unique for repetido
     try {
       const usuario = await UsuarioModel.create(req.body);
-
+      let randomColor = `rgb(${Math.floor(Math.random() * 256) + 70}, 
+        ${Math.floor(Math.random() * 256) + 70}, 
+        ${Math.floor(Math.random() * 256) + 70})`;
+      usuario.cor_doodle = randomColor;
+      await usuario.save();
       const { senha, ...usuarioSemSenha } = usuario.toObject(); //retorna o usuário criado SEM a senha. Motivos de segurança, já que o select não funciona nesse caso
       res.status(200).json(usuarioSemSenha); //faz uma resposta com código 200 (OK), enviando o usuário sem a senha
     } catch (error) {

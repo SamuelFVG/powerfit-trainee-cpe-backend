@@ -26,6 +26,7 @@ const UsuarioSchema = new Schema({
   },
   cargo: String, //não há limitações para o cargo ou para a atividade
   atividade: String,
+  cor_doodle: String,
 });
 
 UsuarioSchema.pre("save", async function (next) {

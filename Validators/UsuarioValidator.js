@@ -15,6 +15,7 @@ const create = validateRequest({
       .email({ required_error: "Email inválido" }), //verifica se o email está presente, se é uma string e se é um email realmente
     senha: z.string({ required_error: "A senha é obrigatória" }),
     cargo: z.string({ required_error: "O cargo é obrigatório" }),
+    cor_doodle: z.string().optional(),
   }),
 });
 
